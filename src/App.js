@@ -1,19 +1,36 @@
 import './css/style.css';
 import React, { useState } from 'react';
-import FirstName from './components/FirstName';
-import LastName from './components/LastName';
-import Phone from './components/Phone';
-import Email from './components/Email';
-import Message from './components/Message';
+import ItemForm from './components/ItemForm';
+
+const listForm = [
+  {
+    name: 'First name',
+    invalid: 'You must type First Name',
+  },
+  {
+    name: 'Last name',
+    invalid: 'You must type Last Name',
+  },
+  {
+    name: 'Email',
+    invalid: 'You must type Email',
+  },
+  {
+    name: 'Phone',
+    invalid: 'You must type Phone',
+  },
+  {
+    name: 'Message',
+    invalid: 'You must type Message',
+  },
+]
+
 
 const App = () => {
+
+
   const handleSubmit = (e) => {
     e.preventDefault()
-
-  }
-
-  const messages = {
-    empty: "Empty box",
   }
 
   return (
@@ -23,15 +40,10 @@ const App = () => {
           <div className="col col-md-6" >
 
             <form className="d-flex flex-column" action="" onSubmit={handleSubmit} method="post" noValidate>
-              <FirstName form={messages} />
 
-              <LastName form={messages} />
-
-              <Phone form={messages} />
-
-              <Email form={messages} />
-
-              <Message form={messages} />
+              {listForm.map((item, index) =>
+                <ItemForm key={index} form={item} />
+              )}
 
               <label className="m-2">
                 <input className="btn btn-primary" type="submit" value="Send email" />
