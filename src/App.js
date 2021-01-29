@@ -1,11 +1,21 @@
 import './css/style.css';
 import React, { useState } from 'react';
 import FirstName from './components/FirstName';
+import LastName from './components/LastName';
+import Phone from './components/Phone';
+import Email from './components/Email';
+import Message from './components/Message';
 
 const App = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
+
   }
+
+  const messages = {
+    empty: "Empty box",
+  }
+
   return (
     <>
       <div className="container-fluid container__form">
@@ -13,24 +23,15 @@ const App = () => {
           <div className="col col-md-6" >
 
             <form className="d-flex flex-column" action="" onSubmit={handleSubmit} method="post" noValidate>
-              <FirstName />
+              <FirstName form={messages} />
 
-              <label className="m-2">
-                <h5>Last Name:</h5>
-                <input className="form-control" type="text" name="lastName" required />
-              </label>
-              <label className="m-2">
-                <h5>Phone:</h5>
-                <input className="form-control" type="text" name="phoneNumber" required />
-              </label>
-              <label className="m-2">
-                <h5>E-mail:</h5>
-                <input className="form-control" type="text" name="email" required />
-              </label>
-              <label className="m-2">
-                <h5>Message:</h5>
-                <textarea className="form-control" name="message" required></textarea>
-              </label>
+              <LastName form={messages} />
+
+              <Phone form={messages} />
+
+              <Email form={messages} />
+
+              <Message form={messages} />
 
               <label className="m-2">
                 <input className="btn btn-primary" type="submit" value="Send email" />
