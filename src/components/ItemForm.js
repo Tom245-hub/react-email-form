@@ -4,28 +4,55 @@ import React, { useState } from 'react';
 const ItemForm = ({ form }) => {
     const [error, setError] = useState(false);
     const [info, setInfo] = useState('');
-    const [content, setContent] = useState();
+    const [value, setValue] = useState([]);
 
     const handleChange = (e) => {
         let value = e.target.value;
         let name = e.target.name;
-        setContent(value)
+        let length = value.length;
+        setValue(value)
 
-        if (value == '') {
-            setError(true);
+        if (length === 0) {
+            setError(true)
             setInfo('You must type ' + name)
         }
-        if (value != '') {
-            setError(false);
+        if (length >= 1 && length <= 3) {
+            setError(true)
+            setInfo(name + ' is too short')
         }
-
+        if (length >= 4) {
+            setError(false)
+            if (name === 'Email' && !(value.includes('@') && value.includes('.'))) {
+                setError(true);
+                setInfo('Incorrect format of ' + name)
+            }
+            if (name === 'Phone' && value.match(/[A-E]/gi)) {
+                setError(true);
+                setInfo(name + " can't include letters")
+            }
+            if (name === 'Message') {
+                let word = ' ';
+                let words = 0;
+                for (let i = 0; i <= length; i++) {
+                    if (value[i] === word) {
+                        words += 1;
+                    }
+                }
+                if (words <= 4) {
+                    setError(true);
+                    setInfo(name + " has only " + words + ". Do you think it's enough?")
+                } else if (words >= 5) {
+                    setError(false);
+                }
+            }
+        }
     }
 
     return (
         <>
             <label className="m-2">
                 <h5>{form.name}</h5>
-                <input className="form-control" id="validationCustom01" type="text" onChange={handleChange} value={content} name={form.name} required />
+                <input className="form-control" onChange={handleChange} value={value} name={form.name} type="text" />
                 {error && <div className="alert alert-danger" role="alert">{info}</div>}
             </label>
         </>
@@ -33,6 +60,3 @@ const ItemForm = ({ form }) => {
 }
 
 export default ItemForm;
-
-
-

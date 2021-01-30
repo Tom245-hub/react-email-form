@@ -1,5 +1,5 @@
 import './css/style.css';
-import React, { useState } from 'react';
+import React from 'react';
 import ItemForm from './components/ItemForm';
 
 const listForm = [
@@ -34,7 +34,7 @@ const App = () => {
         <div className="row justify-content-md-center align-items-center vh-100">
           <div className="col col-md-6" >
 
-            <form className="d-flex flex-column" action="" onSubmit={handleSubmit} method="post" >
+            <form className="d-flex flex-column" action="" onSubmit={handleSubmit} method="post" noValidate>
 
               {listForm.map((item, index) =>
                 <ItemForm key={index} form={item} />
