@@ -4,57 +4,44 @@ import ItemForm from './components/ItemForm';
 
 const listForm = [
   {
-    name: 'First name',
+    title: 'First name',
+    name: "firstName",
   },
   {
-    name: 'Last name',
+    title: 'Last name',
+    name: "lastName",
   },
   {
-    name: 'Email',
+    title: 'Email',
+    name: "email",
   },
   {
-    name: 'Phone',
+    title: 'Phone',
+    name: "phone",
   },
   {
-    name: 'Message',
+    title: 'Message',
+    name: "message",
   },
 ]
 
 
 const App = () => {
 
-  async postData => () => {
-
-    try {
-
-      let result = await fetch('http://localhost/react-email-form/admin/api-mail.php', {
-        headers: {
-          'Accept': 'application/json, text/plain, */*',
-          'Content-Type': 'application/json'
-        },
-        method: "POST",
-        body: JSON.stringify({
-          firstName: 'Tomek',
-          lastName: 'Oszkiel',
-          email: 'tomek@wp.pl',
-          phone: '506787656',
-          message: 'Cześć, to jest nowa wiadomość',
-        })
-      })
-
-      console.log(result)
-
-    } catch (e) {
-      console.log(e)
-    }
-
-  }
-
-
-
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
+    fetch('http://localhost/react-email-form/admin/mail.php', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json, text/plain'
+      },
+    }
+    )
+      .then(response => response.json())
+      .then(response =>
+        console.log(response)
+      );
   }
 
   return (
@@ -63,14 +50,16 @@ const App = () => {
         <div className="row justify-content-md-center align-items-center vh-100">
           <div className="col col-md-6" >
 
-            <form className="d-flex flex-column" onSubmit={handleSubmit} noValidate>
+            <form className="d-flex flex-column" onSubmit={handleSubmit} action="http:\\localhost\react-email-form\admin\mail.php" method="POST" noValidate>
+
+              {/* <form className="d-flex flex-column" action="http:\\localhost\react-email-form\admin\mail.php" method="POST" noValidate> */}
 
               {listForm.map((item, index) =>
                 <ItemForm key={index} form={item} />
               )}
 
               <label className="m-2">
-                <input className="btn btn-primary" type="submit" onClick={postData()} value="Send email" />
+                <input className="btn btn-primary" type="submit" value="Send email" />
               </label>
             </form>
 

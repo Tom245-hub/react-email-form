@@ -22,15 +22,15 @@ const ItemForm = ({ form }) => {
         }
         if (length >= 4) {
             setError(false)
-            if (name === 'Email' && !(value.includes('@') && value.includes('.'))) {
+            if (name === 'email' && !(value.includes('@') && value.includes('.'))) {
                 setError(true);
                 setInfo('Incorrect format of ' + name)
             }
-            if (name === 'Phone' && value.match(/[A-E]/gi)) {
+            if (name === 'phone' && value.match(/[A-E]/gi)) {
                 setError(true);
                 setInfo(name + " can't include letters")
             }
-            if (name === 'Message') {
+            if (name === 'message') {
                 let word = ' ';
                 let words = 0;
                 for (let i = 0; i <= length; i++) {
@@ -51,7 +51,7 @@ const ItemForm = ({ form }) => {
     return (
         <>
             <label className="m-2">
-                <h5>{form.name}</h5>
+                <h5>{form.title}</h5>
                 <input className="form-control" onChange={handleChange} value={value} name={form.name} type="text" />
                 {error && <div className="alert alert-danger" role="alert">{info}</div>}
             </label>
